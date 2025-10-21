@@ -217,7 +217,27 @@ ggsave('figs/Ejercicio2.pdf')
 * Almacena en formato **pdf** el gráfico resultante en un fichero denominado ``Ejercicio3.pdf``.
 
 ```{r Solucion ejercicio 3}
-
+#borrar todas las variables
+rm(list=ls())
+load("data/iris_tidy.Rdata")
+str(iris)
+iris.grafico1<-ggplot(data=iris.tidy,aes(x=iris.tidy$Species,y=iris.tidy$Value))
+iris.grafico1<-iris.grafico1+geom_point() 
+print(iris.grafico1)
+iris.grafico2<-ggplot(data=iris.tidy,aes(x=iris.tidy$Species,y=iris.tidy$Value,colour=iris.tidy$Part))
+iris.grafico2<-iris.grafico2+geom_point() 
+print(iris.grafico2)
+iris.grafico_filas <- iris.grafico2 +facet_grid(iris.tidy$Measure~.) + ggtitle("Comparación de Medidas (Facetas en Filas)")
+print(iris.grafico_filas)
+iris.grafico_columnas <- iris.grafico2 +facet_grid(.~iris.tidy$Measure) + ggtitle("Comparación de Medidas (Facetas en Columnas)")
+print(iris.grafico_columnas)
+print("Para comparar los valores de las dos variables ('Length' y 'Width') de 'Measure', la disposición en columnas es mejor ya que contamos con una unica escala de eje Y (Value), permitiendo una comparación directa de cada variable para cada especie.")
+iris.grafico2<-ggplot(data=iris.tidy,aes(x=iris.tidy$Species,y=iris.tidy$Value,colour=iris.tidy$Part))
+iris.grafico_columnas <- iris.grafico2 +facet_grid(.~iris.tidy$Measure) + ggtitle("Comparación de Medidas (Facetas en Columnas)")
+iris.grafico_columnas<-iris.grafico_columnas+geom_jitter()
+print(iris.grafico_columnas)
+print("Con geom_point(), al haber muchos puntos en las variables categóricas ('Species'), los puntos se superponen completamente, formando líneas sólidas o bloques ocultando la verdadera distribución y cantidad de observaciones.")
+print("Con geom_jitter(), se añade un pequeño valor aleatorio (ruido) a la posición de los puntos (especialmente en el eje X, que es categórico aquí). Esto dispersa ligeramente los puntos superpuestos, revelando la densidad y la distribución real de las observaciones en la variable continua ('Value') para cada categoría.")
 ggsave('figs/Ejercicio3.pdf') # se almacena el último gráfico generado
 ```
 
