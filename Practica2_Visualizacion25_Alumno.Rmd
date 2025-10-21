@@ -13,6 +13,8 @@ output:
 ---
 
 ```{r setup, cache = F, echo = F, message = F, warning = F, tidy = F}
+#borrar todas las variables
+rm(list=ls())
 # CONFIGURACIÓN GENERAL
 library(knitr)
 options(width = 100)
@@ -157,6 +159,8 @@ p2
 * Almacena en formato **pdf** el gráfico resultante en un fichero denominado ``Ejercicio1.pdf``.
 
 ```{r Solucion ejercicio 1}
+#borrar todas las variables
+rm(list=ls())
 load("data/weatherAUS.RData")
 grafico1<-ggplot(data=ds,aes(x=ds$MinTemp,y=ds$MaxTemp))
 grafico1<-grafico1+geom_point()
