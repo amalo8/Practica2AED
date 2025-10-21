@@ -182,7 +182,26 @@ ggsave('figs/Ejercicio1.pdf')
 * Almacena en formato **pdf** el gráfico resultante en un fichero denominado ``Ejercicio2.pdf``.
 
 ```{r Solucion ejercicio 2}
-
+#borrar todas las variables
+rm(list=ls())
+load("data/weatherAUS.RData")
+grafico4<-ggplot(data=ds,aes(x=ds$Temp9am,y=ds$Pressure9am))
+grafico4<-grafico4+geom_point()
+print(grafico4)
+grafico_shape<-ggplot(data=ds,aes(x=ds$Temp9am,y=ds$Pressure9am,shape=ds$RainToday))
+grafico_shape<-grafico_shape+geom_point()
+print(grafico_shape)
+grafico_colour<-ggplot(data=ds,aes(x=ds$Temp9am,y=ds$Pressure9am,colour=ds$RainToday))
+grafico_colour<-grafico_colour+geom_point()
+print(grafico_colour)
+print("La representación con el color permite distinguir mejor entre las categorías de 'RainToday', sobre todo en gráficos como este donde hay muchos puntos e incluso superpuestos.")
+grafico_colour<-grafico_colour+labs(title = "Temperatura y Presión Atmosférica a las 9 am",subtitle = "Análisis del impacto de la lluvia hoy",
+# Etiquetas de los ejes
+x = "Temperatura a las 9 am (°C)",
+y = "Presión Atmosférica a las 9 am (hPa)",
+# Título de la leyenda 
+color = "¿Llovió Hoy?")
+print(grafico_colour)
 ggsave('figs/Ejercicio2.pdf')
 ```
 
