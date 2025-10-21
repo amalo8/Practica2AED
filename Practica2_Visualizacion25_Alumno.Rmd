@@ -571,12 +571,21 @@ print(histog_base)
 # Es fundamental usar aes(y = after_stat(density)) en ambas capas para normalizar
 grafico_con_densidad <- ggplot(data = df, aes(x = HEIGHT)) +
 # Histograma (usando density en Y para que coincida con la curva)
+#La densidad es la frecuencia normalizada de tal forma que el área total bajo la curva suma 1. El resultado es un gráfico donde la curva de densidad se superpone perfectamente sobre el histograma, ya que ambos están en la misma escala normalizada (la suma de las áreas del histograma también es aproximadamente 1).
 geom_histogram(aes(y = after_stat(density)),breaks = bin_breaks,col = "red",
 fill = "blue", alpha = 0.5) +
 # Añade la curva de distribución (de color verde)
 geom_density(aes(y = after_stat(density)),col = "darkgreen") +
 labs(title = "Histograma y Curva de Densidad de Altura",x = "Altura (cm)",y = "Densidad / Frecuencia Normalizada")
 print(grafico_con_densidad)
+
+# Reutilizamos el gráfico con densidad y añadimos facet_grid.
+grafico_mort <- grafico_con_densidad +
+#Facetado: Representa el histograma anterior para cada valor de MORT
+# (. ~ MORT) divide el gráfico en columnas por los valores de MORT.
+facet_grid(. ~ MORT) + labs(title = "Distribución de la Altura según variable MORT")
+print(grafico_mort)
+ggsave('figs/Ejercicio8.pdf') 
 ```
 
 ## Gráficos de barras con **ggplot2**
